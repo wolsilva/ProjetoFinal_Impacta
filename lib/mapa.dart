@@ -6,16 +6,35 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:localizafeira/controllers/feiras_controller.dart';
 import 'package:provider/provider.dart';
 
-class Mapa extends StatelessWidget {
-  const Mapa({super.key});
 
+//final GlobalKey<State<StatefulWidget>> appKey = GlobalKey();
+final appKey = GlobalKey();
+// ignore: use_key_in_widget_constructors
+class Mapa extends StatelessWidget {
+
+//Mapa({super.key});
+
+  //Mapa({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: appKey,
       appBar: AppBar(
         title: const Text('Mapa'),
         centerTitle: true,
         backgroundColor: Colors.red,
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.home,
+              size: 25,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: ChangeNotifierProvider<Feiras_controller>(
         create: (context) => Feiras_controller(),

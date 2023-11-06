@@ -1,10 +1,13 @@
 // ignore: file_names
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:localizafeira/repositories/feiras_repository.dart';
 // ignore: unused_import
 import 'package:provider/provider.dart';
+import '../feira_detalhes.dart' show FeiraDetalhes;
+import '../Mapa.dart';
 
 // ignore: camel_case_types
 class Feiras_controller extends ChangeNotifier {
@@ -36,10 +39,14 @@ class Feiras_controller extends ChangeNotifier {
           markerId: MarkerId(feira.nome),
           position: LatLng(feira.latitude, feira.longitude),
           icon: await BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(),
-            'feira.jpeg',
-          ),
-          onTap: () => {},
+          const ImageConfiguration(size: Size(24, 24)),
+          'android/assets/images/feira.jpeg'),
+          onTap: () => {
+            showModalBottomSheet(
+            context: appKey.currentState!.context,
+            builder: (context) => FeiraDetalhes(feira: feira),
+            )
+          },
         ),
       );
     });

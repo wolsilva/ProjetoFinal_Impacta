@@ -8,8 +8,9 @@ class Feira {
   Feira({
     required this.nome,
     required this.endereco,
-	required this.dia,
+    required this.dia,
     required this.latitude,
     required this.longitude,
   });
 }
+
