@@ -14,6 +14,6 @@ class StringConstants{
   static const locality = 'localidade';
   static const enterLocality = 'Digite a localidade';
   static const save = 'Salvar';
-  static const queryCep = ' Consulta Cep';
+  static const queryCep = ' Cadastrar Feira';
 
 }

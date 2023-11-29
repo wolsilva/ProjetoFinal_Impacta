@@ -17,10 +17,7 @@ class Feiras_controller extends ChangeNotifier {
   Set<Marker> markers = <Marker>{};
   late GoogleMapController _mapsController;
 
-  // ignore: non_constant_identifier_names
-  /*Feiras_controller() {
-    getPosicao();
-  }*/
+
 
   get mapsController => _mapsController;
 

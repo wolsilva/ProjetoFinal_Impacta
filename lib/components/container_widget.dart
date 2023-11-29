@@ -13,7 +13,7 @@ class ContainerWidget extends StatelessWidget {
   ContainerWidget(
     this.alignment,
     this.height,
-    this.width,{
+    this.width, {
     this.child,
     this.color,
   });

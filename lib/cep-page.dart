@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localizafeira/components/container_widget.dart';
 import 'package:localizafeira/components/text_form_widget.dart';
@@ -7,6 +8,8 @@ import 'package:localizafeira/utils/validate_cep.dart';
 import 'package:provider/provider.dart' show Consumer;
 
 import '../constants/string_constants.dart';
+import 'home.dart';
+
 
 class CepPage extends StatefulWidget {
   const CepPage({Key? key}) : super(key: key);
@@ -23,9 +26,13 @@ class _CepPageState extends State<CepPage> {
   TextEditingController localController = TextEditingController();
   TextEditingController numController = TextEditingController();
 
+  final _firebaseAuth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+
+
 
     void clearCampos() {
       cepController.clear();
@@ -43,11 +50,9 @@ class _CepPageState extends State<CepPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Form(
             key: formKey,
-            child: Consumer<CepProvider>(builder: (
-              context,
-              provider,
-              child,
-            ) {
+            child: Consumer<CepProvider>(builder: (context,
+                provider,
+                child,) {
               return Column(
                 children: [
                   const SizedBox(height: 30),
@@ -95,11 +100,12 @@ class _CepPageState extends State<CepPage> {
           ),
         ),
         IconButton(
-          onPressed:(){
-            Navigator.pop(context);
+          onPressed: () {
+            sair();
+            //Navigator.pop(context);
           },
-          icon:const Icon(
-            Icons.home,
+          icon: const Icon(
+            Icons.sailing_rounded,
             size: 25,
             color: Colors.red,
           ),
@@ -136,10 +142,11 @@ class _CepPageState extends State<CepPage> {
           ),
         ),
       ),
+
     );
   }
 
-  _areaEndereco() {
+    _areaEndereco() {
     return ContainerWidget(
       Alignment.center,
       55,
@@ -207,7 +214,27 @@ class _CepPageState extends State<CepPage> {
           StringConstants.save,
           style: AppTextStyle.MainText,
         ),
+
       ),
     );
+
   }
+
+  sair() async{
+    await _firebaseAuth.signOut().then (
+          (user) =>
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute (
+              builder: (context) => const Home(),
+            ),
+          ),
+    );
+  }
+
 }
+
+
+
+
+
