@@ -44,8 +44,8 @@ class _LoginPageState extends State<LoginPage> {
               child: const Text('Entrar'),
             ),
             TextButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> CadastroPage(),));
-            }, child: Text('Cadastrar uauário'),),
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const CadastroPage(),));
+            }, child: const Text('Cadastrar uauário'),),
           ],
         )
     );

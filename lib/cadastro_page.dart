@@ -52,12 +52,30 @@ class _CadastroPageState extends State<CadastroPage> {
     );
   }
   cadastrar() async{
-    _firebaseAuth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text)
-        .then((UserCredential userCredential){
+      try{
+        UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+        if(userCredential != null){
           userCredential.user!.updateDisplayName(_nomelController.text);
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ChecagemPage(),
-      ),
-      (route) => false);
-    }).catchError((FirebaseAuthException firebaseAuthException) {});
+          ),
+                  (route) => false);
+        }
+      }on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Crie uima senha mais forte'),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        } else if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Este e-mail já está em uso'),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      }
   }
 }
